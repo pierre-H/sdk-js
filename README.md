@@ -10,7 +10,7 @@
 
 <h3 align="center">
   <a href="https://directus.io">Website</a> •
-  <a href="https://docs.directus.io/sdk/js.html">Docs</a> •
+  <a href="https://docs.directus.io/guides/js-sdk.html">Docs</a> •
   <a href="https://docs.directus.io/api/reference.html">API Reference</a> •
   <a href="recipes">Recipes</a> •
   <a href="docs">TSDoc</a> •
