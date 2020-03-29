@@ -140,7 +140,7 @@ export class Authentication implements IAuthentication {
    * Logs the user out by "forgetting" the token, and clearing the refresh interval
    */
   public async logout(): Promise<ILogoutResponse> {
-    const response = await this.inject.request<ILogoutResponse>("post", "/auth/logout", {}, {}, true);
+    const response = await this.inject.request<ILogoutResponse>("post", "/auth/logout", {}, {}, false);
 
     this.config.token = undefined;
 

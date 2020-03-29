@@ -111,7 +111,26 @@ describe("Authentication", () => {
   });
 
   describe("#logout()", () => {
+    it("Calls the right API logout endpoint", async () => {
+      client.config.project = "testProject";
+
+      await client.logout();
+
+      expect(client.api.xhr.request).to.have.been.calledWith({
+        baseURL: "https://demo-api.getdirectus.com/testProject/",
+        data: {},
+        headers: {
+          "X-Directus-Project": "testProject",
+        },
+        method: "post",
+        params: {},
+        url: "/auth/logout",
+      });
+    });
+
     it("Nullifies the token", async () => {
+      client.config.project = "testProject";
+
       await client.logout();
 
       expect(client.config.token).to.be.undefined;
@@ -331,6 +350,8 @@ describe("Authentication", () => {
       });
 
       it("Does not start the interval without the persist key", async () => {
+        client.config.project = "testProject";
+
         await client.logout();
         client.config.reset();
 
