@@ -5,7 +5,7 @@
 // General scheme types types
 import { ILoginCredentials, ILoginOptions } from "./schemes/auth/Login";
 import { BodyType } from "./schemes/http/Body";
-import { QueryParams as QueryParamsType } from "./schemes/http/Query";
+import { QueryParams as QueryParamsType, AssetQueryParams as AssetQueryParamsType } from "./schemes/http/Query";
 // Directus scheme types
 import { IField } from "./schemes/directus/Field";
 import { IRelation } from "./schemes/directus/Relation";
@@ -33,12 +33,14 @@ import { IUserResponse, IUsersResponse } from "./schemes/response/User";
 // Utilities
 import { getCollectionItemPath } from "./utils/collection";
 import { isString } from "./utils/is";
+import {querify} from "./utils/qs";
 // Manager classes
 import { API, IAPI } from "./API";
 import { Configuration, IConfiguration, IConfigurationOptions } from "./Configuration";
 
 import { IServerInformationResponse } from "./schemes/response/ServerInformation";
 import { ISettingsResponse } from "./schemes/response/Setting";
+
 
 // TODO: Move to shared types, SDK is the wrong place for that
 type PrimaryKeyType = string | number;
@@ -393,6 +395,46 @@ export class SDK {
   }
 
   // #endregion fields
+
+  // #region assets
+
+  /**
+   * @see https://docs.directus.io/api/reference.html#assets
+   */
+  public getAssetUrl(privateHash: string, params?: AssetQueryParamsType): string {
+    const querystring = params ? querify(params) : "";
+    const url = [
+      this.config.url.replace(/\/$/, ""),
+      this.config.project,
+      "assets",
+      privateHash
+    ].join("/");
+
+    return querystring.length > 0 ? url + "?" + querystring : url;
+  }
+
+  /**
+   * @see https://docs.directus.io/api/reference.html#assets
+   */
+  public async getAsset(privateHash: string, params?: AssetQueryParamsType) {
+    const previousResponseType = this.api.xhr.defaults.responseType;
+
+    this.api.xhr.defaults.responseType = "arraybuffer";
+    const response = this.api.request(
+      "get",
+      "/assets/" + privateHash,
+      params,
+      undefined,
+      false,
+      undefined,
+      true
+    );
+    this.api.xhr.defaults.responseType = previousResponseType;
+
+    return response;
+  }
+
+  // #endregion assets
 
   // #region files
 

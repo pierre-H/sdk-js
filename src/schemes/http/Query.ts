@@ -35,3 +35,20 @@ interface IQueryParameters {
  * @see https://docs.directus.io/api/reference.html#query-parameters
  */
 export type QueryParams = Partial<IQueryParameters>;
+
+
+/**
+ * @internal
+ */
+interface IAssetQueryParameters {
+  key: string;
+  w: number;
+  h: number;
+  f: string;
+  q: number;
+}
+
+/**
+ * @see https://docs.directus.io/api/reference.html#query-parameters
+ */
+export type AssetQueryParams = Partial<IAssetQueryParameters>;
