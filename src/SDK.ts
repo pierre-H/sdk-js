@@ -56,7 +56,7 @@ export class SDK {
 
   // create a new instance with an API
   constructor(options: IConfigurationOptions) {
-    this.config = new Configuration(options);
+    this.config = new Configuration(options, options ? options.storage : undefined);
     this.api = new API(this.config);
   }
 
@@ -106,7 +106,7 @@ export class SDK {
    * temporary password.
    */
   public requestPasswordReset<TResponse extends any = any>(email: string, reset_url?: string): Promise<TResponse> {
-    const body:any = {
+    const body: any = {
       email
     };
     reset_url ? body.reset_url = reset_url : null;
