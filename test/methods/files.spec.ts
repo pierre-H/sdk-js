@@ -2,6 +2,7 @@ import * as chai from "chai";
 import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
 import SDK from "../../src/";
+import axios from "axios";
 
 import { mockAxiosResponse } from "../mock/response";
 
@@ -26,10 +27,13 @@ describe("Files", () => {
     });
 
     sinon.stub(client.api.xhr, "post").resolves(responseJSON);
+    sinon.stub(client.api, "post").resolves(responseJSON);
+    sinon.stub(axios, "post").resolves(mockAxiosResponse);
   });
 
   afterEach(() => {
     (client.api.xhr.post as any).restore();
+    (client.api.post as any).restore();
   });
 
   describe("#uploadFiles()", () => {
@@ -37,19 +41,7 @@ describe("Files", () => {
       await client.uploadFiles(["fileA", "fileB"]);
 
       // Validate against upload post parameters
-      expect(client.api.xhr.post).to.have.been.calledWith(
-        "https://demo-api.getdirectus.com/testProject/files",
-        ["fileA", "fileB"]
-        // {
-        //   headers: {
-        //     Authorization: "Bearer abcdef",
-        //     "Content-Type": "multipart/form-data",
-        //     "X-Directus-Project": "testProject",
-        //   },
-        //   onUploadProgress: function onUploadProgress() {
-        //   },
-        // },
-      );
+      expect(client.api.post).to.have.been.calledWith("/files");
     });
   });
 });

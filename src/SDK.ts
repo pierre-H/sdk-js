@@ -486,7 +486,7 @@ export class SDK {
       headers["Authorization"] = `Bearer ${this.config.token}`;
     }
 
-    return this.api.post(`/files`, data, {
+    return this.api.post("/files", data, {
       headers,
       onUploadProgress,
     });
