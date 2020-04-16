@@ -115,6 +115,17 @@ export class SDK {
     return this.api.post<TResponse>("/auth/password/request", body);
   }
 
+  /**
+   * Resets the password
+   */
+  public resetPassword<TResponse extends any = any>(password: string, token: string): Promise<TResponse> {
+    const body:any = {
+      password,
+      token
+    };
+    return this.api.post<TResponse>("/auth/password/reset", body);
+  }
+
   // #endregion authentication
 
   // #endregion collection presets
