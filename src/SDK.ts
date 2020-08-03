@@ -473,10 +473,14 @@ export class SDK {
    * Upload multipart files in multipart/form-data
    * @see https://docs.directus.io/api/reference.html#files
    */
-  public uploadFiles<TResponse extends any = any[]>(
+  public async uploadFiles(
     data: object, // TODO: fix type definition
     onUploadProgress: () => object = () => ({})
-  ): Promise<TResponse> {
+  ) {
+    let baseURL = `${this.config.url}`;
+    if (baseURL.endsWith("/") === false) baseURL += "/";
+    baseURL += this.config.project;
+
     const headers: { [index: string]: any } = {
       "Content-Type": "multipart/form-data",
       "X-Directus-Project": this.config.project,
@@ -486,10 +490,17 @@ export class SDK {
       headers["Authorization"] = `Bearer ${this.config.token}`;
     }
 
-    return this.api.post("/files", data, {
+    const response = await this.api.xhr({
+      method: 'post',
+      url: "/files",
+      baseURL,
+      data,
       headers,
       onUploadProgress,
+      withCredentials: true
     });
+
+    return response.data;
   }
 
   // #endregion files
