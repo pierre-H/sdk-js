@@ -122,6 +122,7 @@ getSettingsFields(params?: object): Promise<any>;
 getUsers(params?: object): Promise<IUsersResponse>;
 getUser(primaryKey: PrimaryKeyType, params?: object): Promise<IUserResponse>;
 getMe(params?: object): Promise<IUserResponse>;
+createUser(body: BodyType): Promise<IUserResponse>;
 updateUser(primaryKey: PrimaryKeyType, body: BodyType): Promise<IUserResponse>;
 
 // Meta

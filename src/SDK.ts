@@ -877,6 +877,14 @@ export class SDK {
   }
 
   /**
+   * Create a single Directus user
+   * @param {User} body
+   */
+  public createUser<User extends IUser>(body: User) {
+    return this.api.post<IUserResponse<User>>("/users", body);
+  }
+
+  /**
    * Update a single user based on primaryKey
    * @param {PrimaryKeyType} primaryKey
    * @param {QueryParamsType?} params

@@ -74,6 +74,27 @@ describe("Users", () => {
     });
   });
 
+  describe("#createUser()", () => {
+    it("Calls post() for the right endpoint", () => {
+      client.createUser({
+        first_name: "Ben",
+        last_name: "Haynes",
+        email: "demo@example.com",
+        password: "d1r3ctu5",
+        role: 3,
+        status: "active"
+      });
+      expect(client.api.post).to.have.been.calledWith("/users", {
+        first_name: "Ben",
+        last_name: "Haynes",
+        email: "demo@example.com",
+        password: "d1r3ctu5",
+        role: 3,
+        status: "active"
+      });
+    });
+  });
+
   describe("#updateUser()", () => {
     it("Calls #updateItem()", () => {
       client.updateUser(15, { last_page: "/activity" });
