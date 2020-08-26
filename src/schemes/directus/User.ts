@@ -19,7 +19,7 @@ export interface IUser {
   last_page?: string;
   locale?: string;
   locale_options?: string;
-  role: IRole;
+  role: IRole | number;
   status: UserStatus;
   timezone?: string;
   title?: string;
