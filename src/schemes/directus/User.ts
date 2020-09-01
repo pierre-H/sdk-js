@@ -1,6 +1,6 @@
 import { IRole } from "./Role";
 
-type UserStatus = "active" | "inactive";
+type UserStatus = "active" | "inactive" | "invited" | "draft" | "suspended" | "deleted";
 
 /**
  * @see https://docs.directus.io/api/reference.html#user-object
