@@ -893,6 +893,22 @@ export class SDK {
     return this.updateItem<User, IUser>("directus_users", primaryKey, body);
   }
 
+  /**
+   * Invite a new user
+   * @param {string} email
+   */
+  public inviteUser<User extends IUser>(email: string) {
+    return this.api.post<IUserResponse<User>>("/users/invite", {data: {email}});
+  }
+
+  /**
+   * Accept User Invite
+   * @param {string} token
+   */
+  public acceptUserInvite<User extends IUser>(token: string) {
+    return this.api.post<IUserResponse<User>>(`/users/invite${token}`);
+  }
+
   // #endregion users
 
   // #region server admin
