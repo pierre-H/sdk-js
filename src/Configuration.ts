@@ -7,11 +7,7 @@ import { AuthModes } from "./Authentication";
 const STORAGE_KEY = "directus-sdk-js";
 
 // defining needed methods for the abstract storage adapter
-export interface IStorageAPI {
-  getItem<T extends any = any>(key: string): T;
-  setItem(key: string, value: any): void;
-  removeItem(key: string): void;
-}
+export type IStorageAPI = Pick<Storage, "getItem" | "setItem" | "removeItem">
 
 // configuration merged with defaults
 export interface IConfigurationValues {
