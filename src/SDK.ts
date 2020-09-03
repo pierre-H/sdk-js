@@ -906,7 +906,7 @@ export class SDK {
    * @param {string} token
    */
   public acceptUserInvite<User extends IUser>(token: string) {
-    return this.api.post<IUserResponse<User>>(`/users/invite${token}`);
+    return this.api.post<IUserResponse<User>>(`/users/invite/${token}`);
   }
 
   // #endregion users
